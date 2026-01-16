@@ -19,13 +19,12 @@ resource "aws_internet_gateway" "igw" {
 # Public Subnets (3 AZs)
 resource "aws_subnet" "public" {
   count = length(var.cidr_blocks_public)
-
   vpc_id            = aws_vpc.mainvpc.id
   cidr_block        = var.cidr_blocks_public[count.index]
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "aws-hw-public-subnet-${count.index + 1}"
+    Name = format("aws-hw-public-subnet-%d", count.index + 1)
     Tier = "Public"
   }
 }
@@ -39,7 +38,7 @@ resource "aws_subnet" "private" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "aws-hw-private-subnet-${count.index + 1}"
+    Name = format("aws-hw-private-subnet-%d", count.index + 1)
     Tier = "Private"
   }
 }

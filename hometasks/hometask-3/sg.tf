@@ -10,13 +10,13 @@ resource "aws_security_group" "main" {
   )
 }
 
-resource "aws_security_group_rule" "main" {
+resource "aws_security_group_rule" "main_ingress" {
   count             = length(var.ports)
   type              = "ingress"
   from_port         = var.ports[count.index]
   to_port           = var.ports[count.index]
   protocol          = "tcp"
-  cidr_blocks       = [var.cidr_blocks_public[count.index]]
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.main.id
 }
 
