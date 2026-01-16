@@ -1,4 +1,6 @@
 # Hometask 5 – ALB + ASG Deployment Using Remote State
+# This module consumes Hometask-3 VPC via terraform_remote_state
+# No network infra defined here
 
 ## Objective
 

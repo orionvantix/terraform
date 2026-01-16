@@ -15,9 +15,29 @@ resource "aws_autoscaling_group" "web" {
 
   target_group_arns = [aws_lb_target_group.this.arn]
 
+  # Name tag
   tag {
     key                 = "Name"
     value               = "${local.name_prefix}-hw5-web"
+    propagate_at_launch = true
+  }
+
+  # Common tags
+  tag {
+    key                 = "Project"
+    value               = local.common_tags["Project"]
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Managed_by"
+    value               = local.common_tags["Managed_by"]
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Env"
+    value               = local.common_tags["Env"]
     propagate_at_launch = true
   }
 
