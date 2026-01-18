@@ -1,6 +1,6 @@
 # Security Groups
 resource "aws_security_group" "main" {
-  name        = "aws-hw-sg"
+  name        = "${local.name_prefix}-web-sg"
   description = "Security group for AWS hometask-instances"
   tags = merge(
     var.tags,
