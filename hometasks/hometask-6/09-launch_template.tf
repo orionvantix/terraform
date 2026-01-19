@@ -27,5 +27,5 @@ resource "aws_launch_template" "web" {
     resource_type = "instance"
 
     tags = local.web_tags
-}
+  }
 }

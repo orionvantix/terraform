@@ -18,3 +18,9 @@ variable "instance_type" {
   description = "EC2 instance type"
   default     = "t3.micro"
 }
+
+variable "domain_name" {
+  type        = string
+  description = "Root domain name"
+  default     = "n8n-create.com"
+}
