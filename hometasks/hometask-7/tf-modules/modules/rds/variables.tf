@@ -1,6 +1,10 @@
 variable "vpc_security_group_id" {
-  type        = string
-  description = "Security group ID for RDS"
+  type = string
+}
+
+
+variable "subnet_ids" {
+  type = list(string)
 }
 
 variable "identifier" {
@@ -39,8 +43,4 @@ variable "port" {
   type = number
   description = "DB port"
   default = 3306
-}
-
-variable "subnet_ids" {
-  type = list(string)
 }
