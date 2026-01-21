@@ -15,6 +15,8 @@ module "ec2" {
   ami = "ami-07ff62358b87c7116"
   instance_type = "t3.micro"
   vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
+    subnet_id = "subnet-0e71e22611472d913" 
+
   }
 
   # How to reference to Child Module
@@ -23,3 +25,19 @@ module "ec2" {
 
   # Syntax: module.sg.output_name
   # Example: module.sg.security_group.id
+
+#  Calling a child module from a Terraform Resitry
+# module "s3-bucket" {
+#   source = "terraform-aws-modules/s3-bucket/aws"
+#   version = "5.10.0"
+
+#   bucket = "terraform-hw-3-bucket"
+# }
+
+# Calling a child module from Github Repository
+module "web-sg" {
+  source = "git::https://github.com/orionvantix/terraform.git//modules/sg?ref=main"
+
+  name = "web-sg"
+  description = "This is a web security group"
+}

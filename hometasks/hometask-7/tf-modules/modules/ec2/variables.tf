@@ -1,7 +1,7 @@
 variable "env" {
-  type        = string
+  type = string
   description = "Environment"
-  default     = "dev"
+  default = "dev"
 }
 
 variable "ami" {
@@ -13,7 +13,7 @@ variable "instance_type" {
 }
 
 variable "vpc_security_group_ids" {
-  type = list(string)
+  type = string
 }
 
 variable "subnet_id" {
