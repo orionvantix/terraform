@@ -4,12 +4,16 @@ variable "env" {
   default = "dev"
 }
 
-variable "ami_id" {
-  type        = string
-  description = "AMI ID for Wordpress EC2 instance"
-  default     = "ami-02dc6e3e481e2bbc5"
-}
+data "aws_ami" "amazon_linux" {
+  most_recent = true
 
+  owners = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+}
 
 variable "instance_type" {
   type        = string

@@ -1,5 +1,5 @@
 resource "aws_instance" "main" {
-  ami           = var.ami_id
+  ami           = var.amazon_linux.id
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
 

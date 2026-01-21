@@ -18,14 +18,25 @@ module "sg" {
   vpc_id      = data.aws_vpc.default.id
 }
 
-module "ec2" {
-  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
 
-  env                   = "wordpress"
-  ami_id                = "ami-07ff62358bbc7f116"
-  instance_type         = "t3.micro"
-  vpc_security_group_ids = module.sg.vpc_security_group_ids
-  subnet_id             = data.aws_subnets.default.ids[0]
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+}
+
+module "ec2" {
+  source = "git::ssh://git@github.com/orionvantix/terraform.git/hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
+
+  env           = "wordpress"
+  ami_id        = data.aws_ami.amazon_linux.id
+  instance_type = "t3.micro"
+
+  vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
+  subnet_id              = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
@@ -38,6 +49,6 @@ module "rds" {
   password          = "sun123"
   db_name           = "wordpress"
 
-  vpc_security_group_id = module.sg.vpc_security_group_ids[0]
+  vpc_security_group_id = module.sg.vpc_security_group_ids
   subnet_ids            = data.aws_subnets.default.ids
 }
