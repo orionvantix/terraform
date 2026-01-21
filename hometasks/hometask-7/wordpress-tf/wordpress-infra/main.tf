@@ -40,8 +40,7 @@ module "rds" {
   password              = "sun123"
   db_name               = "wordpress"
 
-  vpc_security_group_id = module.sg.vpc_security_group_ids
-  subnet_ids            = data.aws_subnets.default.ids
+  vpc_security_group_id = module.sg.vpc_security_group_ids[0]
 }
 
 

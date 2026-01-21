@@ -12,7 +12,7 @@ resource "aws_db_instance" "main" {
 
   vpc_security_group_ids = [ var.vpc_security_group_id ]
 
-  publicly_accessible = false
+  publicly_accessible = true
   skip_final_snapshot = true
 }
 
