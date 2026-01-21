@@ -4,14 +4,17 @@ variable "env" {
   default = "dev"
 }
 
-variable "ami" {
-  type = string
-  description = "AMI ID for EC2 instance"
+variable "ami_id" {
+  type        = string
+  description = "AMI ID for Wordpress EC2 instance"
+  default     = "ami-0c02fb55956c7d316"
 }
 
+
 variable "instance_type" {
-  type = string
-  description = "EC2 instance type"
+  type        = string
+  description = "Instance type for Wordpress EC2"
+  default     = "t3.micro"
 }
 
 variable "vpc_security_group_ids" {
