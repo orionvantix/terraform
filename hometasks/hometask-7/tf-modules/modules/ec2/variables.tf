@@ -7,7 +7,7 @@ variable "env" {
 variable "ami_id" {
   type        = string
   description = "AMI ID for Wordpress EC2 instance"
-  default     = "ami-0c02fb55956c7d316"
+  default     = "ami-07ff62358b87c7116"
 }
 
 
