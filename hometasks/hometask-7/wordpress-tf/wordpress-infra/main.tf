@@ -19,29 +19,31 @@ module "sg" {
 }
 
 module "ec2" {
-  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//tf-modules/modules/ec2?ref=main"
 
-  env                    = "wordpress"
-  ami_id                 = "ami-0c02fb55956c7d316"
-  instance_type          = "t3.micro"
+  env                  = "wordpress"
+  ami_id               = "ami-07ff62358bb7c7116"
+  instance_type        = "t3.micro"
   vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
-subnet_ids = data.aws_subnets.default.ids
+  subnet_id            = data.aws_subnets.default.ids[0]
 }
 
 
+
 module "rds" {
-  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//tf-modules/modules/rds?ref=main"
 
   identifier            = "wordpress-db"
   instance_class        = "db.t3.micro"
   allocated_storage     = 20
   username              = "wpuser"
-  password              = "suni123"
+  password              = "sun123"
   db_name               = "wordpress"
-  vpc_security_group_id = module.sg.vpc_security_group_ids
-    subnet_ids             = data.aws_subnets.default.ids
 
+  vpc_security_group_id = module.sg.vpc_security_group_ids
+  subnet_ids            = data.aws_subnets.default.ids
 }
+
 
 
 # module "s3-bucket" {

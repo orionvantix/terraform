@@ -23,4 +23,6 @@ resource "aws_db_subnet_group" "main" {
   tags = {
     Name = "${var.identifier}-subnet-group"
   }
+
 }
+

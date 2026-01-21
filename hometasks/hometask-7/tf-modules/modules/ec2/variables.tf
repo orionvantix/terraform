@@ -23,6 +23,6 @@ variable "vpc_security_group_ids" {
 }
 
 variable "subnet_id" {
-  type = string
+  type = list(string)
   description = "Subnet Id where the instance will be created"
 }
