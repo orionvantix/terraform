@@ -25,7 +25,7 @@ module "ec2" {
   ami_id                 = "ami-0c02fb55956c7d316"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
-  subnet_id              = data.aws_subnets.default.ids[0]
+subnet_ids = data.aws_subnets.default.ids
 }
 
 
@@ -39,6 +39,8 @@ module "rds" {
   password              = "suni123"
   db_name               = "wordpress"
   vpc_security_group_id = module.sg.vpc_security_group_ids
+    subnet_ids             = data.aws_subnets.default.ids
+
 }
 
 

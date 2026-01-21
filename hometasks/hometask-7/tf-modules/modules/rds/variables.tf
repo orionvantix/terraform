@@ -40,3 +40,7 @@ variable "port" {
   description = "DB port"
   default = 3306
 }
+
+variable "subnet_ids" {
+  type = list(string)
+}
