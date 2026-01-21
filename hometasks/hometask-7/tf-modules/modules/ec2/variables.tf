@@ -18,8 +18,8 @@ variable "instance_type" {
 }
 
 variable "vpc_security_group_ids" {
-  type        = list(string)
-  description = "List of security group IDs for the instance"
+  type        = string
+  description = "Security group ID for the instance"
 }
 
 variable "subnet_id" {
