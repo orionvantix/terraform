@@ -34,7 +34,7 @@ module "rds" {
 }
 
 module "s3-bucket" {
-  source = "https://github.com/orionvantix/terraform//hometasks/hometask-7/modules/s3"
+  source = "https://github.com/orionvantix/terraform//hometasks/hometask-3/modules/s3"
 #   version = "value"
 
   bucket = "terraform-hw-3-bucket"
