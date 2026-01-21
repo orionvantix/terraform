@@ -18,15 +18,6 @@ module "sg" {
   vpc_id      = data.aws_vpc.default.id
 }
 
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-x86_64"]
-  }
-}
 
 module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git/hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
