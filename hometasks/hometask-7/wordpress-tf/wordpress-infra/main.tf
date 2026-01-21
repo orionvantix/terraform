@@ -11,14 +11,15 @@ data "aws_subnets" "default" {
 }
 
 module "sg" {
-  source      = "git@github.com:orionvantix/tf-modules.git//modules/sg"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
+
   name        = "wordpress-sg"
   description = "This is Wordpress security group"
   vpc_id      = data.aws_vpc.default.id
 }
 
 module "ec2" {
-  source = "git@github.com:orionvantix/tf-modules.git//modules/ec2"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
   env                    = "wordpress"
   ami                    = "ami-07ff62358bb7c7116"
@@ -28,7 +29,7 @@ module "ec2" {
 }
 
 module "rds" {
-  source = "git@github.com:orionvantix/tf-modules.git//modules/rds"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"
 
   identifier            = "wordpress-db"
   instance_class        = "db.t3.micro"
