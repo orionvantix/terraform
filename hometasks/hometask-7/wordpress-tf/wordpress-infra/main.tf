@@ -55,7 +55,7 @@ module "rds" {
   db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids
-  subnet_ids = slice(data.aws_subnets.default.ids, 0, 2)
+subnet_ids = data.aws_subnets.default.ids
 }
 
 
