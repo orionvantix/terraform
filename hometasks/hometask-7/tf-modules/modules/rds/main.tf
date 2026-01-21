@@ -21,6 +21,6 @@ resource "aws_db_instance" "main" {
   publicly_accessible = true
   skip_final_snapshot = true
 
-  vpc_security_group_ids = [ var.vpc_security_group_id ]
+vpc_security_group_ids = [var.vpc_security_group_id]
   db_subnet_group_name   = aws_db_subnet_group.main.name
 }

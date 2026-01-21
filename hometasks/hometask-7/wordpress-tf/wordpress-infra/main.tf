@@ -10,6 +10,22 @@ data "aws_subnets" "default" {
   }
 }
 
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+
 module "sg" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
 
@@ -22,7 +38,7 @@ module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
   env                  = "wordpress"
-  ami_id               = data.aws_ami.amazon_linux.id
+  ami                  = data.aws_ami.amazon_linux.id
   instance_type        = "t3.micro"
   vpc_security_group_ids = [module.sg.vpc_security_group_ids]
   subnet_id            = data.aws_subnets.default.ids[0]
@@ -41,3 +57,5 @@ module "rds" {
   vpc_security_group_id = module.sg.vpc_security_group_ids
   subnet_ids            = data.aws_subnets.default.ids
 }
+
+

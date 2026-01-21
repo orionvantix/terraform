@@ -1,32 +1,25 @@
 variable "env" {
-  type = string
+  type        = string
   description = "Environment"
-  default = "dev"
+  default     = "dev"
 }
 
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-
-  owners = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-x86_64"]
-  }
+variable "ami" {
+  type        = string
+  description = "AMI ID for EC2 instance"
 }
 
 variable "instance_type" {
   type        = string
-  description = "Instance type for Wordpress EC2"
-  default     = "t3.micro"
+  description = "EC2 instance type"
 }
 
 variable "vpc_security_group_ids" {
-  type        = string
-  description = "Security group ID for the instance"
+  type        = list(string)
+  description = "List of security group IDs for the instance"
 }
 
 variable "subnet_id" {
-  type = string
+  type        = string
   description = "Subnet Id where the instance will be created"
 }
