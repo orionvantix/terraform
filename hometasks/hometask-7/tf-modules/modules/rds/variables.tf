@@ -1,5 +1,5 @@
 variable "vpc_security_group_id" {
-  type = string
+  type        = string
   description = "Security group ID for RDS"
 }
 
