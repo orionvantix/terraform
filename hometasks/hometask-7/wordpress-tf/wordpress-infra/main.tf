@@ -7,11 +7,6 @@ data "aws_subnets" "default" {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
   }
-
-  filter {
-    name   = "availability-zone"
-    values = ["us-east-1a", "us-east-1b"]
-  }
 }
 
 module "sg" {
@@ -27,7 +22,7 @@ module "ec2" {
   ami_id                = "ami-02dc6e3e481e2bbc5"
   instance_type         = "t3.micro"
   vpc_security_group_ids = module.sg.vpc_security_group_ids
-  subnet_id             = data.aws_subnets.default.ids[0]
+  subnet_id = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
@@ -41,6 +36,6 @@ module "rds" {
   db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids
-  subnet_ids            = data.aws_subnets.default.ids
+  subnet_ids = data.aws_subnets.default.ids
 }
 
