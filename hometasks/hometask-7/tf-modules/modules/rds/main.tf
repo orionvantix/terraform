@@ -1,0 +1,18 @@
+resource "aws_db_instance" "main" {
+  identifier = var.identifier
+  engine = "mysql"
+  engine_version = "8.0"
+  instance_class = var.instance_class
+  allocated_storage = var.allocated_storage
+
+  username = var.username
+  password = var.password
+  db_name = var.db_name
+  port = var.port
+
+  vpc_security_group_ids = [ var.vpc_security_group_id ]
+
+  publicly_accessible = false
+  skip_final_snapshot = true
+}
+

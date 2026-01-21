@@ -3,6 +3,13 @@ data "aws_vpc" "default" {
   default = true
 }
 
+data "aws_subnets" "default" {
+  filter {
+    name = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
 module "sg" {
   # call module
   source = "../../tf-modules/modules/sg"
@@ -18,7 +25,7 @@ module "ec2" {
   ami = "ami-07ff62358b87c7116"
   instance_type = "t3.micro"
   vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
-  subnet_id = "subnet-0e71e22611472d913"
+  subnet_id = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
@@ -33,9 +40,9 @@ module "rds" {
   vpc_security_group = module.sg.vpc_security_group.ids
 }
 
-module "s3-bucket" {
-  source = "https://github.com/orionvantix/terraform//hometasks/hometask-3/modules/s3"
-#   version = "value"
+# module "s3-bucket" {
+#   source = "https://github.com/orionvantix/terraform//hometasks/hometask-3/modules/s3"
+# #   version = "value"
 
-  bucket = "terraform-hw-3-bucket"
-}
+#   bucket = "terraform-hw-3-bucket"
+# }
