@@ -18,6 +18,6 @@ resource "aws_db_instance" "main" {
 
 resource "aws_db_subnet_group" "main" {
   name       = "${var.identifier}-subnet-group"
-  subnet_ids = var.subnet_ids
+subnet_ids = data.aws_subnets.default.ids
 }
 

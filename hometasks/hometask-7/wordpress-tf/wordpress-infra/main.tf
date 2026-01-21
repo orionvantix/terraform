@@ -19,7 +19,7 @@ module "sg" {
 module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
   env                   = "wordpress"
-  ami_id                = "ami-07ff623588bc7f116"
+  ami_id                = "ami-02dc6e3e481e2bbc5"
   instance_type         = "t3.micro"
   vpc_security_group_ids = module.sg.vpc_security_group_ids
   subnet_id             = data.aws_subnets.default.ids[0]
