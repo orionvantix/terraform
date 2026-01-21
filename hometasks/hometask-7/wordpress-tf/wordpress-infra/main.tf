@@ -22,11 +22,12 @@ module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
   env                    = "wordpress"
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  vpc_security_group_ids = [module.sg.vpc_security_group_ids]
+  ami_id                 = "ami-0c02fb55956c7d316"
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
   subnet_id              = data.aws_subnets.default.ids[0]
 }
+
 
 module "rds" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"
