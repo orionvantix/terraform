@@ -37,11 +37,11 @@ module "sg" {
 module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
-  env                  = "wordpress"
-  ami                  = data.aws_ami.amazon_linux.id
-  instance_type        = "t3.micro"
+  env                    = "wordpress"
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t3.micro"
   vpc_security_group_ids = [module.sg.vpc_security_group_ids]
-  subnet_id            = data.aws_subnets.default.ids[0]
+  subnet_id              = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
@@ -55,7 +55,7 @@ module "rds" {
   db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids
-  subnet_ids            = data.aws_subnets.default.ids
+  subnet_ids = slice(data.aws_subnets.default.ids, 0, 2)
 }
 
 
