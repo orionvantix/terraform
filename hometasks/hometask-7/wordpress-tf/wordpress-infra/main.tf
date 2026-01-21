@@ -33,15 +33,18 @@ module "ec2" {
 module "rds" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"
 
-  identifier          = "wordpress-db"
-  instance_class      = "db.t3.micro"
-  allocated_storage   = 20
-  username            = "wpuser"
-  password            = "sun123"
-  db_name             = "wordpress"
+  identifier        = "wordpress-db"
+  instance_class    = "db.t3.micro"
+  allocated_storage = 20
+  username          = "wpuser"
+  password          = "sun123"
+  db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids[0]
+
+  subnet_ids = data.aws_subnets.default.ids
 }
+
 
 
 
