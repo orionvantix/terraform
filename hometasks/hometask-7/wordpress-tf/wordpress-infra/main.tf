@@ -1,16 +1,6 @@
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
-
 module "sg" {
-  source      = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
+
   name        = "wordpress-sg"
   description = "This is wordpress security group"
   vpc_id      = data.aws_vpc.default.id
@@ -18,15 +8,16 @@ module "sg" {
 
 module "ec2" {
   source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
+
   env                   = "wordpress"
-  ami_id                = "ami-02dc6e3e481e2bbc5"
+  ami_id                = "ami-07ff62358bbc7f116"
   instance_type         = "t3.micro"
   vpc_security_group_ids = module.sg.vpc_security_group_ids
-  subnet_id = data.aws_subnets.default.ids[0]
+  subnet_id             = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
-  source = "git::ssh://git@github.com/orionvantix/terraform.git/hometasks/hometask-7/tf-modules/modules/rds?ref=main"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"
 
   identifier        = "wordpress-db"
   instance_class    = "db.t3.micro"
@@ -38,4 +29,3 @@ module "rds" {
   vpc_security_group_id = module.sg.vpc_security_group_ids[0]
   subnet_ids            = data.aws_subnets.default.ids
 }
-
