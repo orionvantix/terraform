@@ -18,16 +18,14 @@ module "sg" {
   vpc_id      = data.aws_vpc.default.id
 }
 
-
 module "ec2" {
-  source = "git::ssh://git@github.com/orionvantix/terraform.git/hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
+  source = "git::ssh://git@github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
-  env           = "wordpress"
-  ami_id        = data.aws_ami.amazon_linux.id
-  instance_type = "t3.micro"
-
-  vpc_security_group_ids = [ module.sg.vpc_security_group_ids ]
-  subnet_id              = data.aws_subnets.default.ids[0]
+  env                  = "wordpress"
+  ami_id               = data.aws_ami.amazon_linux.id
+  instance_type        = "t3.micro"
+  vpc_security_group_ids = [module.sg.vpc_security_group_ids]
+  subnet_id            = data.aws_subnets.default.ids[0]
 }
 
 module "rds" {
