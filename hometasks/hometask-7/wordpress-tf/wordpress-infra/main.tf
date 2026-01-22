@@ -41,7 +41,8 @@ module "sg" {
   source      = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
   name        = "wordpress-sg"
   description = "This is wordpress security group"
-  vpc_id      = data.aws_vpc.default.id
+  
+  vpc_id = aws_vpc.wp.id
 }
 module "ec2" {
   source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
