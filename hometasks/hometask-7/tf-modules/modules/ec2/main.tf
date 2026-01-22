@@ -5,6 +5,9 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = var.vpc_security_group_ids
   user_data              = var.user_data
 
+    associate_public_ip_address = true
+
+
   tags = {
     Name        = "${var.env}-instance"
     Environment = var.env
