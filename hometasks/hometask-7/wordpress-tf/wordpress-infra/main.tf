@@ -59,9 +59,9 @@ module "rds" {
   identifier        = "wordpress-db"
   instance_class    = "db.t3.micro"
   allocated_storage = 20
-  username          = "wpuser"
-  password          = "Sun123456"
-  db_name           = "wordpress"
+  username          = var.db_username
+  password          = var.db_password
+  db_name           = var.db_name
 
   vpc_security_group_ids = module.sg.ids
   subnet_ids             = [aws_subnet.db_a.id, aws_subnet.db_b.id]
