@@ -5,11 +5,8 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = var.vpc_security_group_ids
   user_data              = var.user_data
 
-    key_name               = "MyMacKey"
-
-
     associate_public_ip_address = true
-
+    key_name               = "wp-key"
 
   tags = {
     Name        = "${var.env}-instance"
