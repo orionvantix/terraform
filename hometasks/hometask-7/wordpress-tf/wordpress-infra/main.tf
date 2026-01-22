@@ -72,7 +72,7 @@ module "rds" {
   instance_class    = "db.t3.micro"
   allocated_storage = 20
   username          = "wpuser"
-  password          = "sun123"
+  password          = "Sun123456"
   db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids
