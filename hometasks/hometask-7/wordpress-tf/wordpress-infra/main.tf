@@ -50,7 +50,7 @@ module "ec2" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = "t3.micro"
   subnet_id              = data.aws_subnets.default.ids[0]
-  vpc_security_group_ids = [module.sg.vpc_security_group_ids]
+  vpc_security_group_ids = module.sg.ids
   user_data              = file("${path.module}/wp_userdata.sh")
 }
 module "rds" {
