@@ -16,10 +16,15 @@ variable "instance_type" {
 
 variable "vpc_security_group_ids" {
   type        = list(string)
-  description = "List of security group IDs for the instance"
+  description = "Security group IDs"
 }
 
 variable "subnet_id" {
   type        = string
-  description = "Subnet Id where the instance will be created"
+  description = "Subnet ID where the instance will be created"
+}
+
+variable "user_data" {
+  type        = string
+  description = "User data script content"
 }

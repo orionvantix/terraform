@@ -1,5 +1,5 @@
 output "endpoint" {
-  value = aws_db_instance.main.address
+  value = aws_db_instance.main.endpoint
   description = "DNS address of the RDS instance"
 }
 
