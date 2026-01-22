@@ -27,7 +27,7 @@ data "aws_ami" "amazon_linux" {
 
 resource "aws_subnet" "db_a" {
   vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "10.0.101.0/24"   # adjust if this conflicts
+  cidr_block              = "172.31.101.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = false
 
@@ -38,7 +38,7 @@ resource "aws_subnet" "db_a" {
 
 resource "aws_subnet" "db_b" {
   vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "10.0.102.0/24"   # adjust if needed
+  cidr_block              = "172.31.102.0/24"
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = false
 

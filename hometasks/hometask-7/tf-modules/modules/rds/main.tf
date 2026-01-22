@@ -18,7 +18,6 @@ resource "aws_db_instance" "main" {
   db_name           = var.db_name
   port              = var.port
 
-  publicly_accessible = true
   skip_final_snapshot = true
 
 vpc_security_group_ids = [var.vpc_security_group_id]
