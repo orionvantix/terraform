@@ -25,6 +25,27 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
+resource "aws_subnet" "db_a" {
+  vpc_id                  = data.aws_vpc.default.id
+  cidr_block              = "10.0.101.0/24"   # adjust if this conflicts
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "wordpress-db-a"
+  }
+}
+
+resource "aws_subnet" "db_b" {
+  vpc_id                  = data.aws_vpc.default.id
+  cidr_block              = "10.0.102.0/24"   # adjust if needed
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "wordpress-db-b"
+  }
+}
 
 module "sg" {
   source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
@@ -55,7 +76,10 @@ module "rds" {
   db_name           = "wordpress"
 
   vpc_security_group_id = module.sg.vpc_security_group_ids
-  subnet_ids            = data.aws_subnets.default.ids
+   subnet_ids = [
+    aws_subnet.db_a.id,
+    aws_subnet.db_b.id,
+  ]
 }
 
 
