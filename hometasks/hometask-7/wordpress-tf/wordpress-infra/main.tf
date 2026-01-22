@@ -19,24 +19,24 @@ data "aws_ami" "amazon_linux" {
     values = ["hvm"]
   }
 }
-resource "aws_subnet" "db_a" {
-  vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "172.31.101.0/24"
-  availability_zone       = "us-east-1a"
-  map_public_ip_on_launch = false
-  tags = {
-    Name = "wordpress-db-a"
-  }
-}
-resource "aws_subnet" "db_b" {
-  vpc_id                  = data.aws_vpc.default.id
-  cidr_block              = "172.31.102.0/24"
-  availability_zone       = "us-east-1b"
-  map_public_ip_on_launch = false
-  tags = {
-    Name = "wordpress-db-b"
-  }
-}
+# resource "aws_subnet" "db_a" {
+#   vpc_id                  = data.aws_vpc.default.id
+#   cidr_block              = "172.31.101.0/24"
+#   availability_zone       = "us-east-1a"
+#   map_public_ip_on_launch = false
+#   tags = {
+#     Name = "wordpress-db-a"
+#   }
+# }
+# resource "aws_subnet" "db_b" {
+#   vpc_id                  = data.aws_vpc.default.id
+#   cidr_block              = "172.31.102.0/24"
+#   availability_zone       = "us-east-1b"
+#   map_public_ip_on_launch = false
+#   tags = {
+#     Name = "wordpress-db-b"
+#   }
+# }
 module "sg" {
   source      = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
   name        = "wordpress-sg"
