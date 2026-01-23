@@ -19,7 +19,7 @@ resource "aws_security_group" "main" {
     cidr_blocks = var.ssh_cidrs
   }
 
-  # MySQL (RDS)
+  # MySQL
   ingress {
     from_port   = 3306
     to_port     = 3306

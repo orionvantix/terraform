@@ -12,15 +12,15 @@ variable "vpc_id" {
 
 variable "http_cidrs" {
   type    = list(string)
-  default = ["0.0.0.0/0"]
+  default = []
 }
 
 variable "ssh_cidrs" {
   type    = list(string)
-  default = ["0.0.0.0/0"]
+  default = []
 }
 
 variable "mysql_cidrs" {
   type    = list(string)
-  default = ["0.0.0.0/0"]
+  default = []
 }
