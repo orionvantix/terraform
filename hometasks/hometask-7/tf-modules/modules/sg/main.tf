@@ -11,7 +11,7 @@ resource "aws_security_group" "main" {
     cidr_blocks = var.http_cidrs
   }
 
-  # SSH (for management)
+  # SSH
   ingress {
     from_port   = 22
     to_port     = 22
