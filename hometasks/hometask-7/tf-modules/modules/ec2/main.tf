@@ -1,15 +1,30 @@
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 resource "aws_instance" "main" {
-  ami                    = var.ami
+  ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
   user_data              = var.user_data
 
-  associate_public_ip_address = true
-  key_name               = "wp-key"
+  associate_public_ip_address = var.associate_public_ip
+  key_name                    = var.key_name
 
   tags = {
-    Name        = "${var.env}-instance"
+    Name        = var.name
     Environment = var.env
   }
 }

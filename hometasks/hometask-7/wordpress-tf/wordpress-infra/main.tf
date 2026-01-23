@@ -1,40 +1,33 @@
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-x86_64"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 module "sg" {
-  source      = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
-  name        = "wordpress-sg"
-  description = "This is wordpress security group"
+  source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/sg?ref=main"
 
-  vpc_id = aws_vpc.wp.id
+  name        = "wordpress-sg"
+  description = "Security group for wordpress web + db"
+  vpc_id      = aws_vpc.wp.id
+
+  http_cidrs  = ["0.0.0.0/0"]
+  ssh_cidrs   = ["0.0.0.0/0"]
+  mysql_cidrs = ["0.0.0.0/0"]
 }
+
 module "ec2" {
   source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
-  env           = var.env
-  ami           = data.aws_ami.amazon_linux.id
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.public_a.id
-
-  vpc_security_group_ids = module.sg.ids
-
+  name                   = "wordpress-ec2"
+  env                    = var.env
+  instance_type          = "t3.micro"
+  subnet_id              = aws_subnet.public_a.id
+  vpc_security_group_ids = [module.sg.id]
   user_data = templatefile("${path.module}/wp_userdata.sh.tpl", {
     db_name     = var.db_name
-    db_user     = var.db_username
+    db_username = var.db_username
     db_password = var.db_password
     db_host     = module.rds.endpoint
   })
+  key_name            = "wp-key"
+  associate_public_ip = true
 }
+
 
 module "rds" {
   source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/rds?ref=main"

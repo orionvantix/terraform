@@ -8,7 +8,7 @@ resource "aws_security_group" "main" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.http_cidrs
   }
 
   # SSH (for management)
@@ -16,7 +16,7 @@ resource "aws_security_group" "main" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
+    cidr_blocks = var.ssh_cidrs
   }
 
   # MySQL (RDS)
@@ -24,7 +24,7 @@ resource "aws_security_group" "main" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.mysql_cidrs
   }
 
   egress {

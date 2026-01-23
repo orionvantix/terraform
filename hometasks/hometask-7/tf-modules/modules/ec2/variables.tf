@@ -1,30 +1,32 @@
-variable "env" {
-  type        = string
-  description = "Environment"
-  default     = "dev"
+variable "name" {
+  type = string
 }
 
-variable "ami" {
-  type        = string
-  description = "AMI ID for EC2 instance"
+variable "env" {
+  type = string
 }
 
 variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-}
-
-variable "vpc_security_group_ids" {
-  type        = list(string)
-  description = "Security group IDs"
+  type = string
 }
 
 variable "subnet_id" {
-  type        = string
-  description = "Subnet ID where the instance will be created"
+  type = string
+}
+
+variable "vpc_security_group_ids" {
+  type = list(string)
 }
 
 variable "user_data" {
-  type        = string
-  description = "User data script content"
+  type = string
+}
+
+variable "key_name" {
+  type = string
+}
+
+variable "associate_public_ip" {
+  type    = bool
+  default = true
 }

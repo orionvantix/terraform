@@ -1,0 +1,19 @@
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Sensitive Vars
+terraform.tfvars
+*.pem
+.env*
+*.key
+
+# Editor junk
+.DS_Store
+.idea/
+.vscode/
+
+# Terraform plan files
+*.plan
+
