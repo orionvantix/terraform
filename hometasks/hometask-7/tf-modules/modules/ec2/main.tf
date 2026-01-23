@@ -19,9 +19,8 @@ resource "aws_instance" "main" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
   user_data              = var.user_data
-
+  key_name               = var.key_name
   associate_public_ip_address = var.associate_public_ip
-  key_name                    = var.key_name
 
   tags = {
     Name        = var.name

@@ -13,22 +13,24 @@ module "sg" {
 module "ec2" {
   source = "git::https://github.com/orionvantix/terraform.git//hometasks/hometask-7/tf-modules/modules/ec2?ref=main"
 
-  name                   = "wordpress-ec2"
-  env                    = var.env
-  ami = data.aws_ami.amazon_linux.id
-  instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.public_a.id
+  name  = "wordpress-ec2"
+  env   = var.env
+
+  instance_type         = "t3.micro"
+  subnet_id             = aws_subnet.public_a.id
   vpc_security_group_ids = module.sg.ids
-  
+
   user_data = templatefile("${path.module}/wp_userdata.sh.tpl", {
     db_name     = var.db_name
     db_username = var.db_username
     db_password = var.db_password
     db_host     = module.rds.endpoint
   })
+
   key_name            = "wp-key"
   associate_public_ip = true
 }
+
 
 
 module "rds" {
